@@ -94,15 +94,20 @@ public class Player : MonoBehaviour
 	{
 		if (canAttack == false) { return; }
 
+		anim.SetTrigger("atk");
+
 		canMove = currHealth == maxHealth;
 		canAttack = false;
 
 		var newSword = Instantiate(sword, transform.position, sword.transform.rotation);
 		newSword.transform.Rotate(Vector3.back * currDir * 90);
 
-		void recoverMovement() { 
-			canMove = true; 
-			canAttack = true;	
+		void recoverMovement()
+		{
+			canMove = true;
+			canAttack = true;
+
+			anim.ResetTrigger("atk");
 		};
 
 		Sword swordComp = newSword.GetComponent<Sword>();
