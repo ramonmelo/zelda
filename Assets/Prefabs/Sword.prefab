@@ -141,4 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929a86477f92743fba6c08da59a6407f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 0.1
+  swordParticle: {fileID: 8745493118493690141, guid: e927114eb99a14cbfbf0f759e30915a4,
+    type: 3}
+  normalTimer: 0.15
+  specialTimer: 1
+  special: 0
