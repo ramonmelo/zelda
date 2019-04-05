@@ -23,15 +23,32 @@ public class Sword : MonoBehaviour
 			if (specialTimer < 0)
 			{
 				OnDisappear?.Invoke();
-				Destroy(gameObject);
+				Destroy();
 
-				Destroy(Instantiate(swordParticle, transform.position, Quaternion.identity), 2);
 			}
 		}
 		else if (normalTimer < 0)
 		{
 			OnDisappear?.Invoke();
-			Destroy(gameObject);
+			Destroy();
+		}
+	}
+
+	void Destroy()
+	{
+		Destroy(gameObject);
+		if (special)
+		{
+			Instantiate(swordParticle, transform.position, Quaternion.identity);
+		}
+		OnDisappear?.Invoke();
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Player") == false)
+		{
+			Destroy();
 		}
 	}
 }
