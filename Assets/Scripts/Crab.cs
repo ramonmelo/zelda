@@ -48,42 +48,81 @@ public class Crab : MonoBehaviour
 
 		if (nextMove <= 0)
 		{
-			nextMove = randomizer.Next(1, 3);
-			currDirection = NewDirection();
-
-			transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, (float) currDirection));
-
-			switch (currDirection)
-			{
-				case Direction.DOWN:
-					direction = -transform.up;
-					break;
-				case Direction.RIGHT:
-					direction = transform.right;
-					break;
-				case Direction.UP:
-					direction = transform.up;
-					break;
-				case Direction.LEFT:
-					direction = -transform.right;
-					break;
-			}
+			NewDirection();
 		}
 
 		var velocity = direction * Speed * Time.deltaTime;
 		transform.Translate(velocity);
 	}
 
-	private Direction NewDirection()
+	private void NewDirection()
 	{
-		return (Direction) dirs.GetValue(randomizer.Next(dirs.Length));
+		nextMove = randomizer.Next(1, 3);
+		currDirection = (Direction) dirs.GetValue(randomizer.Next(dirs.Length));
+
+		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, (float) currDirection));
+
+		switch (currDirection)
+		{
+			case Direction.DOWN:
+				direction = -transform.up;
+				break;
+			case Direction.RIGHT:
+				direction = transform.right;
+				break;
+			case Direction.UP:
+				direction = transform.up;
+				break;
+			case Direction.LEFT:
+				direction = -transform.right;
+				break;
+		}
+	}
+
+	void TakeDamage(int amount)
+	{
+		Health--;
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Sword"))
 		{
-			Health--;
+			TakeDamage(1);
 		}
+	}
+
+	void HandleCollision(Collision2D other)
+	{
+		if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Enemy"))
+		{
+			NewDirection();
+		}
+	}
+
+	/// <summary>
+	/// Sent when an incoming collider makes contact with this object's
+	/// collider (2D physics only).
+	/// </summary>
+	/// <param name="other">The Collision2D data associated with this collision.</param>
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if (other.gameObject.CompareTag("Player"))
+		{
+			TakeDamage(1);
+
+			var player = other.gameObject.GetComponent<Player>();
+			if (player != null)
+			{
+				player.TakeDamage(1);
+			}
+		}
+
+		HandleCollision(other);
+	}
+
+	void OnCollisionStay2D(Collision2D other)
+	{
+		HandleCollision(other);
 	}
 }

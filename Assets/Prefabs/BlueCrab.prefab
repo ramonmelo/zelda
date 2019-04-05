@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5650930112766177661}
   m_Layer: 0
   m_Name: BlueCrab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6379e37e8d6994594b959919bd314e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  Health: 1
+  Speed: 0.7
+  Health: 2
   DeathEffect: {fileID: 3277679113687129336, guid: 51492074cdee64740833b949ee034ada,
     type: 3}

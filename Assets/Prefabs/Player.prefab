@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8217133087025635243}
   - component: {fileID: 8217133087025635240}
   - component: {fileID: 8217133087025635245}
+  - component: {fileID: 744361425}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5ed9a8734cc44b487368f857f09ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sword: {fileID: 7415891744726501053, guid: 2018d9486afc14f9f88ea888bebb988f, type: 3}
+  thrustPower: 200
   speed: 2
   hearths:
   - {fileID: 0}
@@ -120,4 +123,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   maxHealth: 2
-  sword: {fileID: 7415891744726501053, guid: 2018d9486afc14f9f88ea888bebb988f, type: 3}
+--- !u!58 &744361425
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8217133087025635241}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.155

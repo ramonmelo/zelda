@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 	{
 		for (int i = 0; i < maxHealth; i++)
 		{
-			if (currHealth <= maxHealth)
+			if (i < currHealth)
 			{
 				hearths[i].gameObject.SetActive(true);
 			}
@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	void TakeDamage(int amount)
+	public void TakeDamage(int amount)
 	{
 		currHealth -= amount;
 
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	void Heal(int amount)
+	public void Heal(int amount)
 	{
 		currHealth += amount;
 
