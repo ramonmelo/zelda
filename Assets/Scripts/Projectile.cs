@@ -17,6 +17,7 @@ public class Projectile : MonoBehaviour
 			}
 
 			Destroy(gameObject);
+			Instantiate(destroyEffect, transform.position, transform.rotation);
 		}
 	}
 }
