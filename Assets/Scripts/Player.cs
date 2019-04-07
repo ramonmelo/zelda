@@ -15,13 +15,18 @@ public class Player : MonoBehaviour
 	private bool canMove;
 	private bool canAttack;
 
+	private SpriteRenderer spriteRenderer;
 	private Animator anim;
 	private int currHealth;
 	private int currDir;
 
+	private bool invencible;
+	private float invencibleTimer = 1f;
+
 	// Start is called before the first frame update
 	void Start()
 	{
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
 		currHealth = maxHealth;
 		canMove = true;
@@ -34,9 +39,23 @@ public class Player : MonoBehaviour
 		UpdateHealth();
 		Movement();
 
-		if (Input.GetKeyDown(KeyCode.F))
+		if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Space))
 		{
 			Attack();
+		}
+
+		if (invencible)
+		{
+			spriteRenderer.enabled = Random.Range(0, 100) < 50;
+
+			invencibleTimer -= Time.deltaTime;
+
+			if (invencibleTimer <= 0)
+			{
+				invencible = false;
+				invencibleTimer = 1f;
+				spriteRenderer.enabled = true;
+			}
 		}
 	}
 
@@ -125,7 +144,10 @@ public class Player : MonoBehaviour
 
 	public void TakeDamage(int amount)
 	{
+		if (invencible) { return; }
+
 		currHealth -= amount;
+		invencible = true;
 
 		if (currHealth < 0)
 		{

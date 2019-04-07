@@ -543,8 +543,8 @@ TextureImporter:
         y: 824
         width: 50
         height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5807959, y: 0.52709806}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -783,8 +783,8 @@ TextureImporter:
         y: 643
         width: 50
         height: 39
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.580116, y: 0.52627486}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

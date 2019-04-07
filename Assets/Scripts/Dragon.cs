@@ -4,29 +4,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class Crab : MonoBehaviour
+public class Dragon : MonoBehaviour
 {
 	enum Direction : int
 	{
-		DOWN = 0,
-		LEFT = 90,
-		UP = 180,
-		RIGHT = 270,
+		UP = 0,
+		LEFT = 1,
+		DOWN = 2,
+		RIGHT = 3
 	}
 
 	public float Speed;
 	public int Health;
 	public GameObject DeathEffect;
+	public GameObject Projectile;
+	public float thrustPower;
 
+	private Animator anim;
 	private Array dirs;
 	private System.Random randomizer = new System.Random();
 	private Stopwatch movementTimer;
 	private float nextMove = 0;
 	private Direction currDirection;
 	private Vector3 direction;
+	private float attackTimer = 3f;
 
 	void Start()
 	{
+		anim = GetComponent<Animator>();
 		dirs = Enum.GetValues(typeof(Direction));
 		NewDirection();
 	}
@@ -41,6 +46,42 @@ public class Crab : MonoBehaviour
 		}
 
 		Movement();
+
+		attackTimer -= Time.deltaTime;
+		if (attackTimer <= 0)
+		{
+			attackTimer = randomizer.Next(1, 3);
+			Attack();
+		}
+	}
+
+	private void Attack()
+	{
+		var newProjectile = Instantiate(Projectile, transform.position, transform.rotation);
+
+		var rb = newProjectile.GetComponent<Rigidbody2D>();
+		if (rb != null)
+		{
+			var dir = Vector3.zero;
+
+			switch (currDirection)
+			{
+				case Direction.UP:
+					dir = newProjectile.transform.up;
+					break;
+				case Direction.LEFT:
+					dir = -newProjectile.transform.right;
+					break;
+				case Direction.RIGHT:
+					dir = newProjectile.transform.right;
+					break;
+				case Direction.DOWN:
+					dir = -newProjectile.transform.up;
+					break;
+			}
+
+			rb.AddForce(dir * thrustPower);
+		}
 	}
 
 	void Movement()
@@ -61,7 +102,7 @@ public class Crab : MonoBehaviour
 		nextMove = randomizer.Next(1, 3);
 		currDirection = (Direction) dirs.GetValue(randomizer.Next(dirs.Length));
 
-		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, (float) currDirection));
+		anim.SetInteger("dir", (int) currDirection);
 
 		switch (currDirection)
 		{
