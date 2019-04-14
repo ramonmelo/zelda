@@ -164,4 +164,25 @@ public class Player : MonoBehaviour
 			currHealth = maxHealth;
 		}
 	}
+
+	/// <summary>
+	/// Sent when another object enters a trigger collider attached to this
+	/// object (2D physics only).
+	/// </summary>
+	/// <param name="other">The other Collider2D involved in this collision.</param>
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		Debug.LogFormat("on trigger {0}", other);
+
+		if (other.gameObject.CompareTag("Potion"))
+		{
+			if (maxHealth < 5)
+			{
+				maxHealth++;
+			}
+
+			currHealth = maxHealth;
+			Destroy(other.gameObject);
+		}
+	}
 }
